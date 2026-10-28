@@ -198,7 +198,24 @@ export function moveParticle(row, col, newRow, newCol, swap) {
 
     // Check if destination is occupied
     if (getParticle(newRow, newCol)) {
-        return false;
+
+        // Check whether swapping is allowed
+        if (swap && swap(getParticle(newRow, newCol))) {
+
+            // Save the destination particle
+            const temp = grid[newRow][newCol];
+
+            // Move the current particle to the destination
+            grid[newRow][newCol] = grid[row][col];
+
+            // Move the displaced particle to the original position
+            grid[row][col] = temp;
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     // Move particle
