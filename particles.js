@@ -49,8 +49,19 @@ export class Sand extends Particle {
     }
 
     update(row, col) {
-        // TODO update sand
+        let newRow = row + 1;
+
+        // Try moving down
+        if (!moveParticle(row, col, newRow, col, this.swap)) {
+
+        // If down fails, try down-left
+        if (!moveParticle(row, col, newRow, col - 1, this.swap)) {
+
+            // If down-left fails, try down-right
+            moveParticle(row, col, newRow, col + 1, this.swap);
+        }
     }
+}
 }
 
 /**
